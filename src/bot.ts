@@ -2,8 +2,10 @@ import dotenv from "dotenv";
 dotenv.config();
 import axios from "axios";
 import { TwitterApi } from "twitter-api-v2";
+import schedule from 'node-schedule';
 
-console.log("keyyy",process.env.HUGGING_FACE_API_KEY);
+
+// console.log("keyyy",process.env.HUGGING_FACE_API_KEY);
 
 
 const twitterClient = new TwitterApi({
@@ -17,14 +19,14 @@ const truncateText = (text: string, maxLength: number): string => {
     if (text.length <= maxLength) {
       return text;
     }
-    return text.slice(0, maxLength - 3) + '...';
+    return text.slice(0, maxLength - 150) + '...';
 };
 
 async function generateTweets(): Promise<string | null> {
   try {
     const response = await axios.post(
       "https://api-inference.huggingface.co/models/gpt2",
-      { inputs: "software engineer" },
+      { inputs: "Testing tweet" },
       { headers: { Authorization: `Bearer ${process.env.HUGGING_FACE_API_KEY}` } }
     );
 
@@ -51,8 +53,12 @@ async function main(): Promise<void> {
     console.log(tweet);
     
     if(tweet){
-        await postTweet(tweet);
+        await postTweet("AUTO GENERATED TWEET(TESTING)-----"+tweet);
     }
 }
 
-main();
+
+schedule.scheduleJob('0 * * * *', () => {
+    console.log("Running scheduled task at:", new Date().toISOString());
+    main().then(() => console.log("Scheduled execution completed."));
+});
