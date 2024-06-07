@@ -5,7 +5,7 @@ import { TwitterApi } from "twitter-api-v2";
 import schedule from 'node-schedule';
 
 
-// console.log("keyyy",process.env.HUGGING_FACE_API_KEY);
+// console.log("key,process.env.HUGGING_FACE_API_KEY);
 
 
 const twitterClient = new TwitterApi({
