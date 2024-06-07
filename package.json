@@ -5,7 +5,8 @@
   "main": "bot.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "ts-node-dev ./src/bot.ts"
+    "start:dev": "ts-node-dev ./src/bot.ts",
+    "start": "node ./dist/bot.js"
   },
   "author": "Ashu",
   "license": "MIT",
